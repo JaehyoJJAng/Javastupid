@@ -68,11 +68,14 @@ const countMaker = function () {
         sec: document.getElementById('sec'),
     }
 
-    // 해당 태그들에 값 넣기
-    documentObj.days.textContent = remainingObj.remainingDate;
-    documentObj.hour.textContent = remainingObj.remainingHours;
-    documentObj.min.textContent = remainingObj.remainingMin;
-    documentObj.sec.textContent = remainingObj.remainingSec;
+    // 오브젝트 Key 추출
+    const timeKeys = Object.keys(remainingObj);
+    const docKeys  = Object.keys(documentObj);
+    
+    // Loop 돌면서 태그들에 값 넣기
+    for (i = 0;i < timeKeys.length; i++) {
+        documentObj[docKeys[i]].textContent = remainingObj[timeKeys[i]];
+    }
 
     // container 의 display : none 해제
     setFlex(tag=container);
