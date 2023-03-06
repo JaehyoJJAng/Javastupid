@@ -52,29 +52,27 @@ const countMaker = function () {
     // newContainer 의 display를 none 으로 변경
     setNone(tag=newContainer);
 
-    // 남은 날짜 계산
-    const remainingDate = Math.floor((remaining / 3600) / 24);
-
-    // 남은 시간 계산
-    const remainingHours = Math.floor((remaining / 3600) % 24);
-
-    // 남은 분 계산
-    const remainingMin = Math.floor((remaining / 60) % 60);
-
-    // 남은 초 계산
-    const remainingSec = Math.floor(remaining % 60);
+    // remainingObj 오브젝트 생성
+    const remainingObj = {        
+        remainingDate: Math.floor((remaining / 3600) / 24), // 남은 날짜 계산        
+        remainingHours: Math.floor((remaining / 3600) % 24), // 남은 시간 계산        
+        remainingMin: Math.floor((remaining / 60) % 60), // 남은 분 계산        
+        remainingSec: Math.floor(remaining % 60), // 남은 초 계산
+    };
     
-    // 날짜 넣을 태그 가져오기 : <span id='days'>0</span>
-    const days = document.getElementById('days');
-    const hour = document.getElementById('hour');
-    const min = document.getElementById('min');
-    const sec = document.getElementById('sec');
+    // documentObj 오브젝트 생성
+    const documentObj = {
+        days : document.getElementById('days'),
+        hour:  document.getElementById('hour'),
+        min: document.getElementById('min'),
+        sec: document.getElementById('sec'),
+    }
 
     // 해당 태그들에 값 넣기
-    days.textContent = remainingDate;
-    hour.textContent = remainingHours;
-    min.textContent = remainingMin;
-    sec.textContent = remainingSec;
+    documentObj.days.textContent = remainingObj.remainingDate;
+    documentObj.hour.textContent = remainingObj.remainingHours;
+    documentObj.min.textContent = remainingObj.remainingMin;
+    documentObj.sec.textContent = remainingObj.remainingSec;
 
     // container 의 display : none 해제
     setFlex(tag=container);
