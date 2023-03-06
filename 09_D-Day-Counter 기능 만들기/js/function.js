@@ -87,12 +87,27 @@ const starter = function () {
     newContainer.style.display = 'none';
     
     // setInterval() 함수 응용하기 (익명함수 , Interval)
-    setInterval(() => {countMaker(),1000});
+    intervalIdArr.push(setInterval(() => {countMaker(),1000}));
+
+    console.log(intervalIdArr);
 
     // for (let i = 0; i < 100; i ++) {
     //     setTimeout(countMaker(),1000 * i);
     // }
 }
+
+// interval 초기화 함수
+const setClearInterval = function() {
+    setNone(tag=container);
+    setFlex(tag=newContainer);
+    newContainer.innerHTML = '<h3>D-Day 를 입력해 주세요</h3>';
+    for (let i = 0; i < intervalIdArr.length; i++) {
+        clearInterval(intervalIdArr[i]);
+    }
+}
+
+// intervalIdArr 초기값
+const intervalIdArr = [];
 
 // 데이터 쿼리셋 가져오기 (전역 설정)
 const container = document.querySelector('.d-day-container');
