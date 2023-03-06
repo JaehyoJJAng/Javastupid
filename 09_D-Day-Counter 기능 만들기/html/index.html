@@ -15,9 +15,46 @@
             // input day
             const inputDay = document.querySelector('#target-day-input').value
 
-            // Print input Data
-            console.log(`${inputYear}-${inputMonth}-${inputDay}`)
+            // Date Format
+            // 템플릿 리터럴 방식 : (`${Variable}`)
+            const dateFormat = `${inputYear}-${inputMonth}-${inputDay}`;
+            
+            // Data Return
+            return dateFormat;
         }
+        
+        // Date 함수 응용
+        const counterMaker = function () {
+            // DateFormat 받아오기
+            const dateFormat = dateFormMaker();
+
+            // 현재 날짜 추출
+            const nowDate = new Date();
+
+            // 특정 날짜 추출
+            const targetDate = new Date(dateFormat);
+
+            // D-day 계산
+            const remaining = (targetDate - nowDate) / 1000;
+
+            // 남은 날짜 계산
+            const remainingDate = Math.floor((remaining / 3600) / 24);
+
+            // 남은 시간 계산
+            const remainingHours = Math.floor((remaining / 3600) % 24);
+
+            // 남은 분 계산
+            const remainingMin = Math.floor((remaining / 60) % 60);
+
+            // 남은 초 계산
+            const remainingSec = Math.floor(remaining % 60);
+            
+            // 서식
+            const dDayText = `${dateFormat} 까지 ${remainingDate} 일 ${remainingHours} 시간 ${remainingMin} 분 남았습니다`
+            
+            console.log(dDayText);
+        }
+
     </script>
 
 </head>
@@ -28,6 +65,6 @@
 
     <input id="target-day-input" class="target-input"/>
 
-    <button onclick='dateFormMaker()'>querySelector</button>
+    <button onclick='counterMaker()'>counterMaker</button>
 </body>
 </html>
