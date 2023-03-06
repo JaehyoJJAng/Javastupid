@@ -1,8 +1,10 @@
-// 데이터 쿼리셋 가져오기
-const messageContainer = document.querySelector('.d-day-message');
+const setNone = function (tag) {
+    tag.style.display = 'none';
+}
 
-// messageContainer 변수의 textContent 변경
-messageContainer.textContent = 'D-Day 를 입력해 주세요';
+const setFlex = function (tag) {
+    tag.style.display = 'flex';
+}
 
 const dateFormMaker = function () {
     // input year
@@ -15,7 +17,6 @@ const dateFormMaker = function () {
     const inputDay = document.querySelector('#target-day-input').value
 
     // Date Format
-    // 템플릿 리터럴 방식 : (`${Variable}`)
     return `${inputYear}-${inputMonth}-${inputDay}`
 }
 
@@ -35,20 +36,21 @@ const countMaker = function () {
 
     if (remaining <= 0) {
         // 타이머가 끝난 경우
-        console.log('타이머 종료');
         container.style.display = 'none';
         newContainer.innerHTML = `<h3>타이머가 종료되었습니다.</h3>`;
         newContainer.style.display = 'flex';
         return; // 함수 종료
         
-        // 입력 값 결과가 NaN 인 경우
     } else if (isNaN(remaining)) {
-        console.log('유효하지 않은 시간대');
+        // 입력 값 결과가 NaN 인 경우
         container.style.display = 'none';
         newContainer.innerHTML = `<h3>유효하지 않은 시간대</h3>`;
         newContainer.style.display = 'flex';
         return // 함수 종료
     }
+
+    // newContainer 의 display를 none 으로 변경
+    setNone(tag=newContainer);
 
     // 남은 날짜 계산
     const remainingDate = Math.floor((remaining / 3600) / 24);
@@ -62,9 +64,6 @@ const countMaker = function () {
     // 남은 초 계산
     const remainingSec = Math.floor(remaining % 60);
     
-    // 서식
-    //const dDayText = `${dateFormat} 까지 ${remainingDate} 일 ${remainingHours} 시간 ${remainingMin} 분 남았습니다`
-
     // 날짜 넣을 태그 가져오기 : <span id='days'>0</span>
     const days = document.getElementById('days');
     const hour = document.getElementById('hour');
@@ -75,7 +74,16 @@ const countMaker = function () {
     days.textContent = remainingDate;
     hour.textContent = remainingHours;
     min.textContent = remainingMin;
-    sec.textContent = remainingSec;            
-    
-    // console.log(remainingDate, remainingHours, remainingMin, remainingSec);
+    sec.textContent = remainingSec;
+
+    // container 의 display : none 해제
+    setFlex(tag=container);
 }
+
+// 데이터 쿼리셋 가져오기 (전역 설정)
+const container = document.querySelector('.d-day-container');
+const newContainer = document.querySelector('.d-day-message');
+
+// textContent 변경
+setNone(tag=container);
+newContainer.innerHTML = '<h3>D-Day 를 입력해 주세요</h3>';
