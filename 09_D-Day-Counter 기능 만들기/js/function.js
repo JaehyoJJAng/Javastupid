@@ -72,9 +72,9 @@ const countMaker = function () {
     const timeKeys = Object.keys(remainingObj);
     const docKeys  = Object.keys(documentObj);
     
-    // Loop 돌면서 태그들에 값 넣기
-    for (i = 0;i < timeKeys.length; i++) {
-        documentObj[docKeys[i]].textContent = remainingObj[timeKeys[i]];
+    // for .. of 사용
+    for (let idx in timeKeys) {
+        documentObj[docKeys[idx]].textContent = remainingObj[timeKeys[idx]];
     }
 
     // container 의 display : none 해제
