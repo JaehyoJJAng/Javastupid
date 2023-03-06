@@ -3,14 +3,31 @@
 <head>
     <title>D-Day-Counter</title>
 
-    <script>const consoleTool = function(Text) {
-        console.log('consoleTool Function')}</script>
+    <script>
+        // dateFormMaker : querySelector
+        const dateFormMaker = function () {
+            // input year
+            const inputYear = document.querySelector('#target-year-input').value
+
+            // input month
+            const inputMonth = document.querySelector('#target-month-input').value
+
+            // input day
+            const inputDay = document.querySelector('#target-day-input').value
+
+            // Print input Data
+            console.log(`${inputYear}-${inputMonth}-${inputDay}`)
+        }
+    </script>
+
 </head>
 <body>
-    <div id="1" class="div-class">안녕하세요</div>
-    <div id="2" class="div-class">조심히 가세요</div>
-    <span style="color: #4923ff">자바스크립트</span>
-    <input />
-    <button onclick='consoleTool()'>버튼</button>
+    <input id="target-year-input" class="target-input"/>
+
+    <input id="target-month-input" class="target-input"/>
+
+    <input id="target-day-input" class="target-input"/>
+
+    <button onclick='dateFormMaker()'>querySelector</button>
 </body>
 </html>
