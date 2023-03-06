@@ -1,3 +1,9 @@
+// 데이터 쿼리셋 가져오기
+const messageContainer = document.querySelector('.d-day-message');
+
+// messageContainer 변수의 textContent 변경
+messageContainer.textContent = 'D-Day 를 입력해 주세요';
+
 const dateFormMaker = function () {
     // input year
     const inputYear = document.querySelector('#target-year-input').value
@@ -14,7 +20,7 @@ const dateFormMaker = function () {
 }
 
 // Date 함수 응용
-const countMaker = function () {
+const countMaker = function () {    
     // DateFormat 받아오기
     const dateFormat = dateFormMaker();
 
@@ -26,10 +32,6 @@ const countMaker = function () {
 
     // D-day 계산
     const remaining = (targetDate - nowDate) / 1000;
-    
-    // container 태그 찍어보기
-    // console.log(container);
-    // console.log(newContainer);
 
     if (remaining <= 0) {
         // 타이머가 끝난 경우
@@ -40,7 +42,6 @@ const countMaker = function () {
         return; // 함수 종료
         
         // 입력 값 결과가 NaN 인 경우
-        // 입력 값 중 하나가 스트링인 경우 연산 값 오류 등 ..
     } else if (isNaN(remaining)) {
         console.log('유효하지 않은 시간대');
         container.style.display = 'none';

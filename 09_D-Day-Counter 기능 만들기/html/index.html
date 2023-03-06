@@ -3,8 +3,9 @@
 <head>
     <title>D-Day-Counter</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/function.js"></script>
 
+    <!-- defer : 스크립트 코드 해석과 동시에 태그 생성 -->
+    <script src="../js/function.js" defer></script>
 </head>
 <body>
     <h1>D-Day</h1>
@@ -43,7 +44,8 @@
         <input id="target-month-input" size="5"/> -
         <input id="target-day-input" size="5"/>
     </div>
-
+    
+    <!-- 카운트다운 버튼 -->
     <button id="start-btn" onclick='countMaker()'>카운트다운 시작하기</button>
 </body>
 </html>
