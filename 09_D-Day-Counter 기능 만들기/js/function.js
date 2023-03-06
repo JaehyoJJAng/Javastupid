@@ -36,16 +36,16 @@ const countMaker = function () {
 
     if (remaining <= 0) {
         // 타이머가 끝난 경우
-        container.style.display = 'none';
+        setNone(tag=container);
         newContainer.innerHTML = `<h3>타이머가 종료되었습니다.</h3>`;
-        newContainer.style.display = 'flex';
+        setFlex(tag=newContainer);
         return; // 함수 종료
         
     } else if (isNaN(remaining)) {
         // 입력 값 결과가 NaN 인 경우
-        container.style.display = 'none';
+        setNone(tag=container);
         newContainer.innerHTML = `<h3>유효하지 않은 시간대</h3>`;
-        newContainer.style.display = 'flex';
+        setFlex(tag=newContainer);
         return // 함수 종료
     }
 
@@ -79,6 +79,19 @@ const countMaker = function () {
 
     // container 의 display : none 해제
     setFlex(tag=container);
+};
+
+// D-Day Loop
+const starter = function () {
+    container.style.display = 'flex';
+    newContainer.style.display = 'none';
+    
+    // setInterval() 함수 응용하기 (익명함수 , Interval)
+    setInterval(() => {countMaker(),1000});
+
+    // for (let i = 0; i < 100; i ++) {
+    //     setTimeout(countMaker(),1000 * i);
+    // }
 }
 
 // 데이터 쿼리셋 가져오기 (전역 설정)
