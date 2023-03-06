@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
     <title>D-Day-Counter</title>
-
+    <link rel="stylesheet" href="../css/style.css">
     <script>
+        // .d-day-container 태그 참조하기
+        const container = document.querySelector('.d-day-container');
+        const newContainer = document.querySelector('.d-day-message');
+
         // dateFormMaker : querySelector
         const dateFormMaker = function () {
             // input year
@@ -21,7 +25,7 @@
         }
         
         // Date 함수 응용
-        const counterMaker = function () {
+        const countMaker = function () {
             // DateFormat 받아오기
             const dateFormat = dateFormMaker();
 
@@ -33,6 +37,28 @@
 
             // D-day 계산
             const remaining = (targetDate - nowDate) / 1000;
+            
+            // container 태그 찍어보기
+            // console.log(container);
+            // console.log(newContainer);
+
+            if (remaining <= 0) {
+                // 타이머가 끝난 경우
+                console.log('타이머 종료');
+                container.style.display = 'none';
+                newContainer.innerHTML = `<h3>타이머가 종료되었습니다.</h3>`;
+                newContainer.style.display = 'flex';
+                return; // 함수 종료
+                
+                // 입력 값 결과가 NaN 인 경우
+                // 입력 값 중 하나가 스트링인 경우 연산 값 오류 등 ..
+            } else if (isNaN(remaining)) {
+                console.log('유효하지 않은 시간대');
+                container.style.display = 'none';
+                newContainer.innerHTML = `<h3>유효하지 않은 시간대</h3>`;
+                newContainer.style.display = 'flex';
+                return // 함수 종료
+            }
 
             // 남은 날짜 계산
             const remainingDate = Math.floor((remaining / 3600) / 24);
@@ -47,21 +73,63 @@
             const remainingSec = Math.floor(remaining % 60);
             
             // 서식
-            const dDayText = `${dateFormat} 까지 ${remainingDate} 일 ${remainingHours} 시간 ${remainingMin} 분 남았습니다`
-            
-            console.log(dDayText);
-        }
+            //const dDayText = `${dateFormat} 까지 ${remainingDate} 일 ${remainingHours} 시간 ${remainingMin} 분 남았습니다`
 
+            // 날짜 넣을 태그 가져오기 : <span id='days'>0</span>
+            const days = document.getElementById('days');
+            const hour = document.getElementById('hour');
+            const min = document.getElementById('min');
+            const sec = document.getElementById('sec');
+
+            // 해당 태그들에 값 넣기
+            days.textContent = remainingDate;
+            hour.textContent = remainingHours;
+            min.textContent = remainingMin;
+            sec.textContent = remainingSec;            
+            
+            // console.log(remainingDate, remainingHours, remainingMin, remainingSec);
+        }
     </script>
 
 </head>
 <body>
-    <input id="target-year-input" class="target-input"/>
+    <h1>D-Day</h1>
+    <div class="d-day-container">
+        <!-- Days -->
+        <div class="d-day-child-container">
+            <span id="days">0</span>
+            <span>일</span>
+        </div>
 
-    <input id="target-month-input" class="target-input"/>
+        <!-- Hour -->
+        <div class="d-day-child-container">
+            <span id="hour">0</span>
+            <span>시간</span>
+        </div>
 
-    <input id="target-day-input" class="target-input"/>
+        <!-- Min -->
+        <div class="d-day-child-container">
+            <span id="min">0</span>
+            <span>분</span>
+        </div>
 
-    <button onclick='counterMaker()'>counterMaker</button>
+        <!-- Sec -->
+        <div class="d-day-child-container">
+            <span id="sec">0</span>
+            <span>초</span>
+        </div>        
+    </div>
+
+    <!-- D-Day Message -->
+    <div class="d-day-message"></div>
+
+    <!-- Date Input -->
+    <div class="target-selector">
+        <input id="target-year-input" size="5"/> -
+        <input id="target-month-input" size="5"/> -
+        <input id="target-day-input" size="5"/>
+    </div>
+
+    <button id="start-btn" onclick='countMaker()'>카운트다운 시작하기</button>
 </body>
 </html>
