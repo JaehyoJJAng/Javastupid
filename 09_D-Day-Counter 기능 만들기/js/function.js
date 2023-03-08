@@ -21,10 +21,7 @@ const dateFormMaker = function () {
 }
 
 // Date 함수 응용
-const countMaker = function () {    
-    // DateFormat 받아오기
-    const dateFormat = dateFormMaker();
-
+const countMaker = function (dateFormat) {    
     // 현재 날짜 추출
     const nowDate = new Date();
 
@@ -71,10 +68,21 @@ const countMaker = function () {
     // 오브젝트 Key 추출
     const timeKeys = Object.keys(remainingObj);
     const docKeys  = Object.keys(documentObj);
+
+    const format = function (time) {
+        if (time < 10) {
+            return '0' + String(time);
+        } else {
+            return time
+        }
+    }
     
     // for .. of 사용
     for (let idx in timeKeys) {
-        documentObj[docKeys[idx]].textContent = remainingObj[timeKeys[idx]];
+        const remainingTime = format(time=remainingObj[timeKeys[idx]]);
+        console.log(remainingTime);
+        
+        documentObj[docKeys[idx]].textContent = remainingTime
     }
 
     // container 의 display : none 해제
@@ -83,27 +91,30 @@ const countMaker = function () {
 
 // D-Day Loop
 const starter = function () {
+    // DateFormat 받아오기
+    const dateFormat = dateFormMaker();
+
     container.style.display = 'flex';
     newContainer.style.display = 'none';
     
     // setInterval() 함수 응용하기 (익명함수 , Interval)
-    intervalIdArr.push(setInterval(() => {countMaker(),1000}));
+    intervalIdArr.push(setInterval(() => {countMaker(dateFormat),1000}));
 
     console.log(intervalIdArr);
-
-    // for (let i = 0; i < 100; i ++) {
-    //     setTimeout(countMaker(),1000 * i);
-    // }
 }
 
 // interval 초기화 함수
 const setClearInterval = function() {
-    setNone(tag=container);
-    setFlex(tag=newContainer);
-    newContainer.innerHTML = '<h3>D-Day 를 입력해 주세요</h3>';
     for (let i = 0; i < intervalIdArr.length; i++) {
         clearInterval(intervalIdArr[i]);
     }
+}
+
+const resetTimer = function() { 
+    setNone(tag=container);
+    setFlex(tag=newContainer);
+    newContainer.innerHTML = '<h3>D-Day 를 입력해 주세요</h3>';
+    setClearInterval()
 }
 
 // intervalIdArr 초기값
