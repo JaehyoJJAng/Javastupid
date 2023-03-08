@@ -6,6 +6,9 @@ const setFlex = function (tag) {
     tag.style.display = 'flex';
 }
 
+// localStorage 의 특정 키에 대한 값 추출
+const savedDate = localStorage.getItem('dateFormat');
+
 const dateFormMaker = function () {
     // input year
     const inputYear = document.querySelector('#target-year-input').value
@@ -21,7 +24,11 @@ const dateFormMaker = function () {
 }
 
 // Date 함수 응용
-const countMaker = function (dateFormat) {    
+const countMaker = function (dateFormat) {
+    if (dateFormat !== savedDate) {
+        localStorage.setItem('saved-date',dateFormat);
+    }
+
     // 현재 날짜 추출
     const nowDate = new Date();
 
@@ -80,7 +87,6 @@ const countMaker = function (dateFormat) {
     // for .. of 사용
     for (let idx in timeKeys) {
         const remainingTime = format(time=remainingObj[timeKeys[idx]]);
-        console.log(remainingTime);
         
         documentObj[docKeys[idx]].textContent = remainingTime
     }
@@ -90,15 +96,20 @@ const countMaker = function (dateFormat) {
 };
 
 // D-Day Loop
-const starter = function () {
-    // DateFormat 받아오기
-    const dateFormat = dateFormMaker();
+const starter = function (savedDate) {
+    if (! savedDate) {
+        // 변수 초기화
+        savedDate = dateFormMaker();
+    }
 
-    container.style.display = 'flex';
-    newContainer.style.display = 'none';
+    // 브라우저의 Local Storage 생성하기 (setItem(Key,Value))
+    localStorage.setItem('savedDate',savedDate);
+
+    setFlex(tag=container);
+    setNone(tag=newContainer);
     
     // setInterval() 함수 응용하기 (익명함수 , Interval)
-    intervalIdArr.push(setInterval(() => {countMaker(dateFormat),1000}));
+    intervalIdArr.push(setInterval(() => {countMaker(savedDate),1000}));
 
     console.log(intervalIdArr);
 }
@@ -127,3 +138,11 @@ const newContainer = document.querySelector('.d-day-message');
 // textContent 변경
 setNone(tag=container);
 newContainer.innerHTML = '<h3>D-Day 를 입력해 주세요</h3>';
+
+// 조건문과 storage 데이터의 조합
+if (savedDate) {
+    starter(savedDate);
+} else {
+    setFlex(tag=container);
+    setNone(tag=newContainer);
+}
